@@ -1,0 +1,21 @@
+package mx.edu.utng.ejgj.basededatos2.data.local.dao
+
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
+import mx.edu.utng.ejgj.basededatos2.data.entity.PostEntity
+
+@Dao
+interface PostDao {
+
+    @Insert
+    suspend fun insert(post: PostEntity)
+
+    @Update
+    suspend fun update(post: PostEntity)
+
+    @Delete
+    suspend fun delete(post: PostEntity)
+
+    @Query("SELECT * FROM posts")
+    suspend fun getAll(): List<PostEntity>
+}
