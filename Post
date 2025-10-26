@@ -1,0 +1,11 @@
+package mx.edu.utng.ejgj.basededatos2.data.entity
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "posts")
+data class PostEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val title: String = "",   // Puedes dejarlo vacío si no lo usas
+    val content: String
+)
