@@ -1,0 +1,31 @@
+package mx.edu.utng.ejgj.basededatos2.data.local.database
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import mx.edu.utng.ejgj.basededatos2.data.entity.PostEntity
+import mx.edu.utng.ejgj.basededatos2.data.local.dao.PostDao
+
+@Database(entities = [PostEntity::class], version = 1, exportSchema = false)
+abstract class AppDataBase : RoomDatabase() {
+
+    abstract fun postDao(): PostDao
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDataBase? = null
+
+        fun getInstance(context: Context): AppDataBase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDataBase::class.java,
+                    "app_database"
+                ).build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+}
